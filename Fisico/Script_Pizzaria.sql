@@ -191,6 +191,12 @@ VALUES ('Guiherme', '(31) 94567-8901', 'Avenida dos Pássaros, 456 - Bairro Tran
 INSERT INTO CLIENTE(NOME, TELEFONE, ENDERECO)
 VALUES ('Andre', '(31) 99876-5432', 'Rua dos Sonhos, 210 - Bairro Esperança - Cidade Plácida - UF');
 
+INSERT INTO CLIENTE(NOME, TELEFONE, ENDERECO)
+VALUES ('Enzo', '(31) 9 9786-5432', 'Rua dos Pesadelos, 12 - Bairro Desespero - Cidade Aterrorizante - UF');
+
+INSERT INTO CLIENTE(NOME, TELEFONE, ENDERECO)
+VALUES ('Carlos', '(31) 9 9786-7654', 'Avenida Carlão, 300 - Bairro Levantaçaras - Cidade Belo Vertical - UF');
+
 -- --------------------------------------------------------------------------------------------------------------
 -- --------------------------------------------------------------------------------------------------------------
 -- INSERTS NA TABELA VENDEDOR
@@ -242,8 +248,6 @@ VALUES ('Pronto para retirada', 'Confirmado');
 INSERT INTO SITUACAO_PEDIDO(DES_STATUS_PEDIDO, DES_STATUS_PAGAMENTO)
 VALUES ('Pedido retirado', 'Confimado');
 
-INSERT INTO SITUACAO_PEDIDO(DES_STATUS_PEDIDO, DES_STATUS_PAGAMENTO)
-VALUES ('Pedido cancelado', 'Cancelado');
 
 -- --------------------------------------------------------------------------------------------------------------
 -- --------------------------------------------------------------------------------------------------------------
@@ -267,7 +271,7 @@ INSERT INTO PRODUTO(COD_TIPO_PRODUTO, NOME, VLR_PRODUTO_COMPRA, VLR_PRODUTO_VEND
 VALUES (1, 'Heineken', 7.00, 14.00);
 
 INSERT INTO PRODUTO(COD_TIPO_PRODUTO, NOME, VLR_PRODUTO_COMPRA, VLR_PRODUTO_VENDA)
-VALUES (1, 'BRAHMA', 4.00, 8.00);
+VALUES (1, 'Brahma', 4.00, 8.00);
 
 INSERT INTO PRODUTO(COD_TIPO_PRODUTO, NOME, VLR_PRODUTO_COMPRA, VLR_PRODUTO_VENDA)
 VALUES (2, 'Coca-Cola', 4.00, 9.00);
@@ -321,10 +325,13 @@ INSERT INTO PEDIDO_VENDA(COD_CLIENTE, COD_VENDEDOR, COD_SITUACAO_PEDIDO, COD_FOR
 VALUES (2, 2, 4, 4, '2023-11-02 12:53:18', 369.00);
 
 INSERT INTO PEDIDO_VENDA(COD_CLIENTE, COD_VENDEDOR, COD_SITUACAO_PEDIDO, COD_FORMA_PAGAMENTO, DATA_PEDIDO, VLR_PEDIDO_VENDA)
-VALUES (2, 1, 5, 3, '2023-10-10 11:30:00', 70.00);
+VALUES (2, 1, 2, 3, '2023-10-10 11:30:00', 70.00);
 
 INSERT INTO PEDIDO_VENDA(COD_CLIENTE, COD_VENDEDOR, COD_SITUACAO_PEDIDO, COD_FORMA_PAGAMENTO, DATA_PEDIDO, VLR_PEDIDO_VENDA)
 VALUES (3, 2, 1, 1, '2023-10-20 12:53:18', 30.00);
+
+INSERT INTO PEDIDO_VENDA(COD_CLIENTE, COD_VENDEDOR, COD_SITUACAO_PEDIDO, COD_FORMA_PAGAMENTO, DATA_PEDIDO, VLR_PEDIDO_VENDA)
+VALUES (5, 2, 1, 1, '2023-11-05 20:35', 0.00);
 
 -- --------------------------------------------------------------------------------------------------------------
 -- --------------------------------------------------------------------------------------------------------------
@@ -338,7 +345,7 @@ INSERT INTO ITEM_PEDIDO_VENDA(COD_PEDIDO_VENDA, COD_PRODUTO, QTD_ITEM_PEDIDO_VEN
 VALUES (1, 5, 1.00);
 
 INSERT INTO ITEM_PEDIDO_VENDA(COD_PEDIDO_VENDA, COD_PRODUTO, QTD_ITEM_PEDIDO_VENDA)
-VALUES (1, 3, 5.00);
+VALUES (1, 3, 1.00);
 
 -- --------------------------------------------------------------------------------------------------------------
 -- PEDIDO ID 2
@@ -413,27 +420,28 @@ INSERT INTO COTACAO(COD_PRODUTO, COD_FORNECEDOR, VLR_COTACAO, UNIDADE_MEDIDA)
 VALUES (4, 1, 3.50, 'Unidade');
 
 INSERT INTO COTACAO(COD_PRODUTO, COD_FORNECEDOR, VLR_COTACAO, UNIDADE_MEDIDA)
-VALUES (7, 1, 3.00, 'Unidade');
+VALUES (8, 1, 3.00, 'Unidade');
 
 INSERT INTO COTACAO(COD_PRODUTO, COD_FORNECEDOR, VLR_COTACAO, UNIDADE_MEDIDA)
-VALUES (8, 1, 5.00, 'Unidade');
+VALUES (9, 1, 5.00, 'Unidade');
 
 INSERT INTO COTACAO(COD_PRODUTO, COD_FORNECEDOR, VLR_COTACAO, UNIDADE_MEDIDA)
-VALUES (9, 1, 3.00, 'Unidade');
+VALUES (10, 1, 3.00, 'Unidade');
+
 
 -- --------------------------------------------------------------------------------------------------------------
 -- PRODUTOS FORNECIDOS PELO FORNECEDOR DE ID 2
 INSERT INTO COTACAO(COD_PRODUTO, COD_FORNECEDOR, VLR_COTACAO, UNIDADE_MEDIDA)
-VALUES (10, 2, 3.00, 'kg');
+VALUES (11, 2, 3.00, 'kg');
 
 INSERT INTO COTACAO(COD_PRODUTO, COD_FORNECEDOR, VLR_COTACAO, UNIDADE_MEDIDA)
-VALUES (11, 1, 4.50, 'kg');
+VALUES (12, 2, 4.50, 'kg');
 
 INSERT INTO COTACAO(COD_PRODUTO, COD_FORNECEDOR, VLR_COTACAO, UNIDADE_MEDIDA)
-VALUES (12, 1, 15.00, 'kg');
+VALUES (13, 2, 15.00, 'kg');
 
 INSERT INTO COTACAO(COD_PRODUTO, COD_FORNECEDOR, VLR_COTACAO, UNIDADE_MEDIDA)
-VALUES (13, 1, 7.00, 'kg');
+VALUES (14, 2, 7.00, 'kg');
 
 -- --------------------------------------------------------------------------------------------------------------
 -- INSERTS NA TABELA PEDIDO_COMPRA
@@ -477,19 +485,21 @@ VALUES (2, 9, 20.00);
 -- --------------------------------------------------------------------------------------------------------------
 -- PEDIDO COMPRA 3
 INSERT INTO ITEM_PEDIDO_COMPRA(COD_PEDIDO_COMPRA, COD_PRODUTO, QTD_ITEM_PEDIDO_COMPRA)
-VALUES (3, 10, 10.00);
-
-INSERT INTO ITEM_PEDIDO_COMPRA(COD_PEDIDO_COMPRA, COD_PRODUTO, QTD_ITEM_PEDIDO_COMPRA)
 VALUES (3, 11, 10.00);
 
 INSERT INTO ITEM_PEDIDO_COMPRA(COD_PEDIDO_COMPRA, COD_PRODUTO, QTD_ITEM_PEDIDO_COMPRA)
-VALUES (3, 12, 4.00);
+VALUES (3, 12, 10.00);
 
 INSERT INTO ITEM_PEDIDO_COMPRA(COD_PEDIDO_COMPRA, COD_PRODUTO, QTD_ITEM_PEDIDO_COMPRA)
-VALUES (3, 13, 8.00);
+VALUES (3, 13, 4.00);
+
+INSERT INTO ITEM_PEDIDO_COMPRA(COD_PEDIDO_COMPRA, COD_PRODUTO, QTD_ITEM_PEDIDO_COMPRA)
+VALUES (3, 14, 8.00);
 
 -- --------------------------------------------------------------------------------------------------------------
 -- --------------------------------------------------------------------------------------------------------------
+-- --------------------------------------------------------------------------------------------------------------
+-- SELECTS
 -- --------------------------------------------------------------------------------------------------------------
 -- SELECT DOS CLIENTES
 SELECT * FROM CLIENTE;
@@ -530,15 +540,119 @@ SELECT * FROM ITEM_PEDIDO_COMPRA;
 -- --------------------------------------------------------------------------------------------------------------
 -- --------------------------------------------------------------------------------------------------------------
 -- --------------------------------------------------------------------------------------------------------------
--- SELECT COM AS TABELAS DO SISTEMA DE VENDA
-
-
+-- INNER JOINS
+-- --------------------------------------------------------------------------------------------------------------
+-- CLIENTES QUE COMPRARAM NA PIZZARIA E O VALOR TOTAL DE SEUS RESPECTIVOS GASTOS
+SELECT C.COD_CLIENTE  AS CODIGO_CLIENTE, C.NOME AS NOME_CLIENTE, SUM(PV.VLR_PEDIDO_VENDA) AS VALOR_TOTAL
+FROM PEDIDO_VENDA PV
+JOIN CLIENTE C ON C.COD_CLIENTE = PV.COD_CLIENTE
+GROUP BY C.NOME 
+ORDER BY C.NOME ASC;
 
 -- --------------------------------------------------------------------------------------------------------------
 -- --------------------------------------------------------------------------------------------------------------
--- SELECT COM AS TABELAS DO SISTEMA DE COMPRA
+-- LUCRO DA PIZZARIA EM CADA PRODUTO
+SELECT P.COD_PRODUTO AS CODIGO_PRODUTO, P.NOME AS NOME_PRODUTO, SUM((P.VLR_PRODUTO_VENDA - P.VLR_PRODUTO_COMPRA) * QTD_ITEM_PEDIDO_VENDA) AS LUCRO
+FROM PRODUTO P
+JOIN ITEM_PEDIDO_VENDA IPV ON IPV.COD_PRODUTO = P.COD_PRODUTO
+GROUP BY P.NOME
+ORDER BY P.COD_PRODUTO ASC;
 
+-- --------------------------------------------------------------------------------------------------------------
+-- --------------------------------------------------------------------------------------------------------------
+-- RELATÓRIO DE TODOS PEDIDOS VENDA
+SELECT PV.COD_PEDIDO_VENDA AS CODIGO_PEDIDO, C.NOME AS CLIENTE, V.NOME AS VENDEDOR, SUM(IPV.QTD_ITEM_PEDIDO_VENDA) AS QUANTIDADE_ITENS, SP.DES_STATUS_PAGAMENTO AS STATUS_PAGAMENTO, 
+FP.DES_FORMA_PAGAMENTO AS FORMA_PAGAMENTO, PV.VLR_PEDIDO_VENDA AS VALOR_TOTAL, PV.DATA_PEDIDO
+FROM PEDIDO_VENDA PV
+JOIN CLIENTE C ON C.COD_CLIENTE  = PV.COD_CLIENTE
+JOIN VENDEDOR V ON V.COD_VENDEDOR = PV.COD_VENDEDOR 
+JOIN SITUACAO_PEDIDO SP ON SP.COD_SITUACAO_PEDIDO = PV.COD_SITUACAO_PEDIDO 
+JOIN FORMA_PAGAMENTO FP ON FP.COD_FORMA_PAGAMENTO = PV.COD_FORMA_PAGAMENTO
+JOIN ITEM_PEDIDO_VENDA IPV ON IPV.COD_PEDIDO_VENDA = PV.COD_PEDIDO_VENDA
+JOIN PRODUTO P ON P.COD_PRODUTO = IPV.COD_PRODUTO 
+GROUP BY PV.COD_PEDIDO_VENDA; 
 
+-- --------------------------------------------------------------------------------------------------------------
+-- TODOS OS ITENS DE CADA PEDIDO QUE CADA CLIENTE COMPROU COM SUA RESPECTIVA QUANTIDADE, VALOR, DATA E ETC
+SELECT PV.COD_PEDIDO_VENDA AS CODIGO_PEDIDO, C.NOME AS CLIENTE,  V.NOME AS VENDEDOR, P.NOME AS PRODUTO, tp.DES_TIPO_PRODUTO  AS CATEGORIA, IPV.QTD_ITEM_PEDIDO_VENDA AS QUANTIDADE_PRODUTO,
+P.VLR_PRODUTO_VENDA AS VALOR,  SUM(P.VLR_PRODUTO_VENDA * IPV.QTD_ITEM_PEDIDO_VENDA) AS TOTAL, PV.DATA_PEDIDO
+FROM PEDIDO_VENDA PV
+JOIN ITEM_PEDIDO_VENDA IPV ON IPV.COD_PEDIDO_VENDA = PV.COD_PEDIDO_VENDA 
+JOIN CLIENTE C ON C.COD_CLIENTE = PV.COD_CLIENTE 
+JOIN VENDEDOR V ON V.COD_VENDEDOR = PV.COD_VENDEDOR 
+JOIN PRODUTO P ON P.COD_PRODUTO = IPV.COD_PRODUTO 
+JOIN TIPO_PRODUTO TP ON TP.COD_TIPO_PRODUTO = P.COD_TIPO_PRODUTO
+GROUP BY IPV.COD_ITEM_PEDIDO_VENDA;
+
+-- --------------------------------------------------------------------------------------------------------------
+-- --------------------------------------------------------------------------------------------------------------
+-- GASTO DA PIZZARIA COM FORNECEDORES
+SELECT PC.COD_PEDIDO_COMPRA AS CODIGO_PEDIDO, F.NOME AS NOME_FORNECEDOR, F.TELEFONE AS TELEFONE_FORNECEDOR, SUM(PC.VLR_PEDIDO_COMPRA) AS VALOR_TOTAL
+FROM PEDIDO_COMPRA PC
+JOIN FORNECEDOR F ON F.COD_FORNECEDOR = PC.COD_FORNECEDOR
+GROUP BY F.NOME; 
+
+-- --------------------------------------------------------------------------------------------------------------
+-- --------------------------------------------------------------------------------------------------------------
+-- COTACÃO DE CADA PRODUTO FORNECIDO
+SELECT F.COD_FORNECEDOR AS CODIGO_FORNECEDOR, F.NOME AS FORNCEDOR, P.NOME AS PRODUTO, TP.DES_TIPO_PRODUTO AS CATEGORIA, C.VLR_COTACAO AS VALOR_COTACAO, C.UNIDADE_MEDIDA 
+FROM COTACAO C
+JOIN PRODUTO P ON P.COD_PRODUTO = C.COD_PRODUTO 
+JOIN TIPO_PRODUTO TP ON TP.COD_TIPO_PRODUTO = P.COD_TIPO_PRODUTO 
+JOIN FORNECEDOR F ON F.COD_FORNECEDOR = C.COD_FORNECEDOR;
+
+-- --------------------------------------------------------------------------------------------------------------
+-- --------------------------------------------------------------------------------------------------------------
+-- TODOS OS PRODUTOS QUE A PIZZARIA COMPROU COM SUA RESPECTIVA QUANTIDADE, VALOR, UNIDADE DE MEDIDA E ETC
+SELECT PC.COD_PEDIDO_COMPRA AS CODIGO_PEDIDO, F.NOME AS FORNECEDOR, P.NOME AS PRODUTO, TP.DES_TIPO_PRODUTO AS CATEGORIA, IPC.QTD_ITEM_PEDIDO_COMPRA AS QUANTIDADE, 
+P.VLR_PRODUTO_COMPRA AS VALOR, C.UNIDADE_MEDIDA, SUM(P.VLR_PRODUTO_COMPRA * IPC.QTD_ITEM_PEDIDO_COMPRA) AS TOTAL 
+FROM PEDIDO_COMPRA PC
+JOIN FORNECEDOR F ON F.COD_FORNECEDOR = PC.COD_FORNECEDOR 
+JOIN ITEM_PEDIDO_COMPRA IPC ON IPC.COD_PEDIDO_COMPRA = PC.COD_PEDIDO_COMPRA 
+JOIN PRODUTO P ON P.COD_PRODUTO = IPC.COD_PRODUTO 
+JOIN TIPO_PRODUTO TP ON TP.COD_TIPO_PRODUTO = P.COD_TIPO_PRODUTO 
+JOIN COTACAO C ON C.COD_PRODUTO = P.COD_PRODUTO
+GROUP BY IPC.COD_ITEM_PEDIDO_COMPRA;
+
+-- --------------------------------------------------------------------------------------------------------------
+-- --------------------------------------------------------------------------------------------------------------
+-- SELECT COM JOIN USANDO A CLÁUSULA WHERE
+-- --------------------------------------------------------------------------------------------------------------
+-- VENDAS NO MÊS DE OUTUBRO
+SELECT PV.COD_PEDIDO_VENDA AS CODIGO_VENDA, V.NOME AS VENDEDOR, C.NOME AS CLIENTE, PV.VLR_PEDIDO_VENDA  AS TOTAL, DATA_PEDIDO 
+FROM PEDIDO_VENDA PV
+JOIN CLIENTE C ON C.COD_CLIENTE = PV.COD_CLIENTE
+JOIN VENDEDOR V ON V.COD_VENDEDOR = PV.COD_VENDEDOR
+WHERE PV.DATA_PEDIDO BETWEEN '2023-10-01 00:00:00' AND '2023-10-31 23:59:59';
+
+-- --------------------------------------------------------------------------------------------------------------
+-- --------------------------------------------------------------------------------------------------------------
+-- VENDAS NO MÊS DE NOVEMBRO
+SELECT PV.COD_PEDIDO_VENDA AS CODIGO_VENDA, V.NOME AS VENDEDOR, C.NOME AS CLIENTE, PV.VLR_PEDIDO_VENDA  AS TOTAL, DATA_PEDIDO 
+FROM PEDIDO_VENDA PV
+JOIN CLIENTE C ON C.COD_CLIENTE = PV.COD_CLIENTE
+JOIN VENDEDOR V ON V.COD_VENDEDOR = PV.COD_VENDEDOR
+WHERE PV.DATA_PEDIDO BETWEEN '2023-11-01 00:00:00' AND '2023-11-31 23:59:59';
+
+-- --------------------------------------------------------------------------------------------------------------
+-- --------------------------------------------------------------------------------------------------------------
+-- --------------------------------------------------------------------------------------------------------------
+-- OUTER JOINS
+-- --------------------------------------------------------------------------------------------------------------
+-- --------------------------------------------------------------------------------------------------------------
+-- TODOS OS PRODUTOS COM E SEM COTAÇÃO - LEFT JOIN
+SELECT P.COD_PRODUTO AS CODIGO_PRODUTO, P.NOME AS PRODUTO, C.VLR_COTACAO  AS VALOR_COTACAO, C.UNIDADE_MEDIDA 
+FROM PRODUTO P
+LEFT JOIN COTACAO C ON C.COD_PRODUTO = P.COD_PRODUTO;
+
+-- --------------------------------------------------------------------------------------------------------------
+-- --------------------------------------------------------------------------------------------------------------
+-- QUANTIDADE DE PEDIDOS POR CLIENTE - RIGHT JOIN
+SELECT C.COD_CLIENTE AS CODIGO_CLIENTE, C.NOME AS NOME_CLIENTE, COUNT(PV.COD_PEDIDO_VENDA) AS QUANTIDADE_PEDIDOS
+FROM PEDIDO_VENDA PV
+RIGHT JOIN CLIENTE C ON C.COD_CLIENTE = PV.COD_CLIENTE 
+GROUP BY C.NOME 
+ORDER BY C.NOME ASC;
 
 -- --------------------------------------------------------------------------------------------------------------
 -- --------------------------------------------------------------------------------------------------------------
