@@ -97,7 +97,74 @@ CONSTRAINT [FK_FORNECEDOR] FOREIGN KEY([COD_FORNECEDOR]) REFERENCES FORNECEDOR([
 
 CREATE UNIQUE INDEX IF NOT EXISTS[IPK_PRODUTO] ON PRODUTO([COD_PRODUTO]);
 
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- TABELA DO PEDIDO
+CREATE TABLE IF NOT EXISTS [PEDIDO]
+(
+[COD_PEDIDO] INTEGER NOT NULL,
+[COD_CLIENTE] INTEGER NOT NULL,
+[COD_VENDEDOR] INTEGER NOT NULL,
+[COD_LOJA] INTEGER NOT NULL,
+[DES_STATUS] VARCHAR(100) NOT NULL,
+[TEMPO_ESPERA] TIME NOT NULL,
+[VLR_PEDIDO] DOUBLE NOT NULL,
+[DATA_PEDIDO] DATETIME NOT NULL,
+CONSTRAINT [PK_PEDIDO] PRIMARY KEY([COD_PEDIDO] AUTOINCREMENT),
+CONSTRAINT [FK_CLIENTE] FOREIGN KEY([COD_CLIENTE]) REFERENCES CLIENTE([COD_CLIENTE]),
+CONSTRAINT [FK_VENDEDOR] FOREIGN KEY([COD_VENDEDOR]) REFERENCES VENDEDOR([COD_VENDEDOR]),
+CONSTRAINT [FK_LOJA] FOREIGN KEY([COD_LOJA]) REFERENCES LOJA([COD_LOJA])
+);
 
+CREATE UNIQUE INDEX IF NOT EXISTS [IPK_PEDIDO] ON PEDIDO([COD_PEDIDO]);
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- TABELA DO ITEM_PEDIDO
+CREATE TABLE IF NOT EXISTS [ITEM_PEDIDO]
+(
+[COD_ITEM_PEDIDO] INTEGER NOT NULL,
+[COD_PEDIDO] INTEGER NOT NULL,
+[COD_PRODUTO] INTEGER NOT NULL,
+[QTD_PRODUTO] INTEGER NOT NULL,
+CONSTRAINT [PK_ITEM_PEDIDO] PRIMARY KEY([COD_ITEM_PEDIDO] AUTOINCREMENT),
+CONSTRAINT [FK_PEDIDO] FOREIGN KEY([COD_PEDIDO]) REFERENCES PEDIDO([COD_PEDIDO]),
+CONSTRAINT [FK_PRODUTO] FOREIGN KEY([COD_PRODUTO]) REFERENCES PRODUTO([COD_PRODUTO])
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS [IPK_ITEM_PEDIDO] ON ITEM_PEDIDO([COD_PEDIDO]);
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- TABELA DO ESTOQUE
+CREATE TABLE IF NOT EXISTS [ESTOQUE]
+(
+[COD_ESTOQUE] INTEGER NOT NULL,
+[COD_PRODUTO] INTEGER NOT NULL,
+[COD_LOJA] INTEGER NOT NULL,
+[QTD_PRODUTO] INTEGER NOT NULL,
+CONSTRAINT [PK_ESTOQUE] PRIMARY KEY([COD_ESTOQUE] AUTOINCREMENT),
+CONSTRAINT [FK_PRODUTO] FOREIGN KEY([COD_PRODUTO]) REFERENCES PRODUTO([COD_PRODUTO]),
+CONSTRAINT [FK_LOJA] FOREIGN KEY([COD_LOJA]) REFERENCES LOJA([COD_LOJA])
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS [IPK_ESTOQUE] ON ESTOQUE([COD_ESTOQUE]);
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- TABELA DE RELATÓRIO
+CREATE TABLE IF NOT EXISTS [RELATORIO]
+(
+[COD_RELATORIO] INTEGER NOT NULL,
+[COD_LOJA] INTEGER NOT NULL,
+[VLR_TOTAL] DOUBLE NOT NULL,
+[DATA_INICIO] DATETIME NOT NULL,
+[DATA_FIM] DATETIME NOT NULL,
+CONSTRAINT [PK_RELATORIO] PRIMARY KEY([COD_RELATORIO] AUTOINCREMENT),
+CONSTRAINT [FK_LOJA] FOREIGN KEY([COD_LOJA]) REFERENCES LOJA([COD_LOJA])
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS [IPK_RELATORIO] ON RELATORIO([COD_RELATORIO]);
 
 -- ------------------------------------------------------------------
 -- ------------------------------------------------------------------
@@ -134,6 +201,26 @@ SELECT * FROM PRODUTO;
 
 -- ------------------------------------------------------------------
 -- ------------------------------------------------------------------
+-- SELECT DOS REGISTROS DA TABELA PEDIDO
+SELECT * FROM PEDIDO;
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- SELECT DOS REGISTROS DA TABELA ITEM_PEDIDO
+SELECT * FROM ITEM_PEDIDO;
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- SELECT DOS REGISTROS DA TABELA ESTOQUE
+SELECT * FROM ESTOQUE;
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- SELECT DOS REGISTROS DA TABELA RELATORIO
+SELECT * FROM RELATORIO;
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
 -- ------------------------------------------------------------------
 -- DROP DAS TABELAS
 -- ------------------------------------------------------------------
@@ -164,3 +251,24 @@ DROP TABLE IF EXISTS [VENDEDOR];
 -- ------------------------------------------------------------------
 -- DROP NA TABELA PRODUTO
 DROP TABLE IF EXISTS [PRODUTO];
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- DROP NA TABELA PEDIDO
+DROP TABLE IF EXISTS [PEDIDO];
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- DROP NA TABELA ITEM_PEDIDO
+DROP TABLE IF EXISTS [ITEM_PEDIDO];
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- DROP NA TABELA ESTOQUE
+DROP TABLE IF EXISTS [ESTOQUE];
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- DROP NA TABELA RELATORIO
+DROP TABLE IF EXISTS [RELATORIO];
+
