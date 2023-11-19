@@ -187,11 +187,142 @@ VALUES ('Zé Delivery - Liberdade', '(11) 9 1324-5768', 'Rua Galvão Bueno, 2000
 
 -- ------------------------------------------------------------------
 -- ------------------------------------------------------------------
+-- INSERTS DA TABELA FORNECEDOR
+INSERT INTO FORNECEDOR(NOME, EMAIL, CNPJ, TELEFONE, ENDERECO)
+VALUES('Fornecedor de refrigerantes', 'refrigerantes@gmail.com', ' 01. 234. 567/0001-20',  
+'(11) 9 8765-4321', 'Rua dos fornecedores, 3000 - Centro - SP-SP');
+
+-- ------------------------------------------------------------------
+INSERT INTO FORNECEDOR(NOME, EMAIL, CNPJ, TELEFONE, ENDERECO)
+VALUES('Fornecedor de bebidas alcoólica', 'bebidasalcoolicas@gmail.com', ' 02. 345.578/0001-50',  
+'(31) 9 5678-1234', 'Rua dos sonhos, 4000 - Pampulha - BH-MG');
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- INSERTS DA TABELA USUARIO
+-- CLIENTES
+INSERT INTO USUARIO(LOGIN, SENHA, EMAIL)
+VALUES ('Marcos', 'marcos123', 'marcosantonio@gmail.com');
+
+-- ------------------------------------------------------------------
+INSERT INTO USUARIO(LOGIN, SENHA, EMAIL)
+VALUES ('Júlio', 'julio123', 'juliomattos@gmail.com');
+
+-- ------------------------------------------------------------------
+INSERT INTO USUARIO(LOGIN, SENHA, EMAIL)
+VALUES ('Bárbara', 'babi321', 'babi_babi@gmail.com');
+
+-- ------------------------------------------------------------------
+INSERT INTO USUARIO(LOGIN, SENHA, EMAIL)
+VALUES ('Larissa', 'larissa12#', 'larissaoliveira@gmail.com');
+
+-- ------------------------------------------------------------------
+-- VENDEDORES
+INSERT INTO USUARIO(LOGIN, SENHA, EMAIL)
+VALUES ('Alexandre', 'alex2030', 'alexandre@gmail.com');
+
+-- ------------------------------------------------------------------
+INSERT INTO USUARIO(LOGIN, SENHA, EMAIL)
+VALUES ('Maria', 'mariaEdu1020', 'mariaeduarda@gmail.com');
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- INSERTS DA TABELA CLIENTE
+INSERT INTO CLIENTE(COD_USUARIO, NOME, CPF, TELEFONE, ENDERECO)
+VALUES ((SELECT COD_USUARIO FROM USUARIO WHERE LOGIN LIKE 'Marcos%' AND EMAIL LIKE 'marcos%'), 
+'Marcos Antônio', '123.345.567-89', '(31) 9 5867-1423', 'Rua dos clientes, 10 - Clientela - BH-MG ');
+
+-- ------------------------------------------------------------------
+INSERT INTO CLIENTE(COD_USUARIO, NOME, CPF, TELEFONE, ENDERECO)
+VALUES ((SELECT COD_USUARIO FROM USUARIO WHERE LOGIN LIKE 'Jú%' AND EMAIL LIKE 'juliomatt%'), 
+'Júlio Mattos', '321.345.576-', '(31) 9 1423-5867', 'Rua dos clientes, 20 - Clientela - BH-MG ');
+
+-- ------------------------------------------------------------------
+INSERT INTO CLIENTE(COD_USUARIO, NOME, CPF, TELEFONE, ENDERECO)
+VALUES ((SELECT COD_USUARIO FROM USUARIO WHERE LOGIN LIKE 'Bárbara%' AND EMAIL LIKE 'babi_babi%'), 
+'Bárbara Andrade', '987.654.874-87', '(31) 9 4132-5867', 'Rua dos clientes, 30 - Clientela - BH-MG ');
+
+-- ------------------------------------------------------------------
+INSERT INTO CLIENTE(COD_USUARIO, NOME, CPF, TELEFONE, ENDERECO)
+VALUES ((SELECT COD_USUARIO FROM USUARIO WHERE LOGIN LIKE 'Larissa%' AND EMAIL LIKE 'larissaoliveira%'), 
+'Larissa Oliveira', '348.853.098-98', '(31) 9 8543-0932', 'Rua dos clientes, 40 - Clientela - BH-MG ');
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- INSERTS NA TABELA VENDEDOR
+INSERT INTO VENDEDOR(COD_USUARIO, COD_LOJA, NOME, CPF, TELEFONE, ENDERECO, ISADMIN)
+VALUES ((SELECT COD_USUARIO FROM USUARIO WHERE LOGIN LIKE 'Alex%' AND EMAIL LIKE 'alexandre@%'), 1,
+'Alexandre', '109.209.007-07', '(31) 9 8561-0091', 'Rua dos funcionários, 1000 - Trabalhadores - BH-MG', TRUE);
+
+-- ------------------------------------------------------------------
+INSERT INTO VENDEDOR(COD_USUARIO, COD_LOJA, NOME, CPF, TELEFONE, ENDERECO, ISADMIN)
+VALUES ((SELECT COD_USUARIO FROM USUARIO WHERE LOGIN LIKE 'Maria%' AND EMAIL LIKE '%riaeduarda@%'), 2,  
+'Maria Eduarsd', '850.212.876-18', '(31) 9 5810-9151', 'Rua dos funcionários, 2000 - Trabalhadores - BH-MG', TRUE);
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- INSERTS NA TABELA PRODUTO
+-- BEBIDAS ALCOÓLICAS
+INSERT INTO PRODUTO(COD_FORNECEDOR, NOME, VLR_PRODUTO)
+VALUES ((SELECT COD_FORNECEDOR FROM FORNECEDOR WHERE NOME LIKE '%bebidas alcoóli%'), 'Heiken', 14.00);
+
+-- ------------------------------------------------------------------
+INSERT INTO PRODUTO(COD_FORNECEDOR, NOME, VLR_PRODUTO)
+VALUES ((SELECT COD_FORNECEDOR FROM FORNECEDOR WHERE NOME LIKE '%bebidas alcoóli%'), 'Brahma', 7.00);
+
+-- ------------------------------------------------------------------
+INSERT INTO PRODUTO(COD_FORNECEDOR, NOME, VLR_PRODUTO)
+VALUES ((SELECT COD_FORNECEDOR FROM FORNECEDOR WHERE NOME LIKE '%bebidas alcoóli%'), 'Skol', 6.50);
+
+-- ------------------------------------------------------------------
+INSERT INTO PRODUTO(COD_FORNECEDOR, NOME, VLR_PRODUTO)
+VALUES ((SELECT COD_FORNECEDOR FROM FORNECEDOR WHERE NOME LIKE '%bebidas alcoóli%'), 'Corona', 12.00);
+
+-- ------------------------------------------------------------------
+-- REFRIGERANTES
+INSERT INTO PRODUTO(COD_FORNECEDOR, NOME, VLR_PRODUTO)
+VALUES ((SELECT COD_FORNECEDOR FROM FORNECEDOR WHERE NOME LIKE '%refrigeran%'), 'Coca-cola', 9.00);
+
+-- ------------------------------------------------------------------
+INSERT INTO PRODUTO(COD_FORNECEDOR, NOME, VLR_PRODUTO)
+VALUES ((SELECT COD_FORNECEDOR FROM FORNECEDOR WHERE NOME LIKE '%refrigeran%'), 'Pepsi', 8.00);
+
+-- ------------------------------------------------------------------
+INSERT INTO PRODUTO(COD_FORNECEDOR, NOME, VLR_PRODUTO)
+VALUES ((SELECT COD_FORNECEDOR FROM FORNECEDOR WHERE NOME LIKE '%refrigeran%'), 'Guaraná', 8.00);
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
 -- ------------------------------------------------------------------
 -- UPDATES
 -- ------------------------------------------------------------------
 --UPDATE NOS REGISTROS DA TABELA LOJA
 UPDATE LOJA SET TELEFONE = '(31) 9 4321-8765' WHERE NOME LIKE '%Centro' AND ENDERECO LIKE '%Centro, BH%';
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+--UPDATE NOS REGISTROS DA TABELA FORNECEDOR
+UPDATE FORNECEDOR SET NOME = 'Fornecedor de bebidas alcoólicas' WHERE CNPJ LIKE '%345.578/0001%' AND TELEFONE LIKE '%5678-1234';
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+--UPDATE NOS REGISTROS DA TABELA USUARIO
+UPDATE USUARIO SET SENHA = 'Larissa123' WHERE SENHA = (SELECT SENHA FROM USUARIO WHERE LOGIN  = 'Larissa');
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+--UPDATE NOS REGISTROS DA TABELA CLIENTE
+UPDATE CLIENTE SET CPF = '321.345.576-95' WHERE NOME = (SELECT NOME FROM CLIENTE WHERE NOME LIKE '%úlio Mat%');
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+--UPDATE NOS REGISTROS DA TABELA VENDEDOR
+UPDATE VENDEDOR SET NOME = 'Maria Eduarda' WHERE TELEFONE = (SELECT TELEFONE FROM CLIENTE WHERE TELEFONE = '(31) 9 5810-9151');
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+--UPDATE NOS REGISTROS DA TABELA PRODUTO
+UPDATE PRODUTO SET NOME = 'Heineken' WHERE NOME = (SELECT NOME FROM PRODUTO WHERE NOME LIKE 'Hei%'); 
 
 -- ------------------------------------------------------------------
 -- ------------------------------------------------------------------
@@ -245,6 +376,39 @@ SELECT * FROM ESTOQUE;
 -- ------------------------------------------------------------------
 -- SELECT DOS REGISTROS DA TABELA RELATORIO
 SELECT * FROM RELATORIO;
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- DELETE DOS REGISTROS DE ID = 1 EM CADA TABELA
+-- ------------------------------------------------------------------
+-- DELETE DO REGISTRO DA TABELA LOJA 
+DELETE FROM LOJA WHERE COD_LOJA = 1;
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- DELE DO REGISTRO NA TABELA FORNECEDOR
+DELETE FROM FORNECEDOR WHERE COD_FORNECEDOR = 1;
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- DELE DO REGISTRO NA TABELA USUARIO
+DELETE FROM USUARIO WHERE COD_USUARIO = 1;
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- DELE DO REGISTRO NA TABELA CLIENTE
+DELETE FROM CLIENTE WHERE COD_CLIENTE = 1;
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- DELE DO REGISTRO NA TABELA VENDEDOR
+DELETE FROM VENDEDOR WHERE COD_VENDEDOR = 1;
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- DELE DO REGISTRO NA TABELA PRODUTO
+DELETE FROM PRODUTO WHERE COD_PRODUTO = 1;
 
 -- ------------------------------------------------------------------
 -- ------------------------------------------------------------------
