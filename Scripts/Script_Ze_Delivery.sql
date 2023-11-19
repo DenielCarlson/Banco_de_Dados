@@ -126,13 +126,13 @@ CREATE TABLE IF NOT EXISTS [ITEM_PEDIDO]
 [COD_ITEM_PEDIDO] INTEGER NOT NULL,
 [COD_PEDIDO] INTEGER NOT NULL,
 [COD_PRODUTO] INTEGER NOT NULL,
-[QTD_PRODUTO] INTEGER NOT NULL,
+[QTD_PRODUTO] DOUBLE NOT NULL,
 CONSTRAINT [PK_ITEM_PEDIDO] PRIMARY KEY([COD_ITEM_PEDIDO] AUTOINCREMENT),
 CONSTRAINT [FK_PEDIDO] FOREIGN KEY([COD_PEDIDO]) REFERENCES PEDIDO([COD_PEDIDO]),
 CONSTRAINT [FK_PRODUTO] FOREIGN KEY([COD_PRODUTO]) REFERENCES PRODUTO([COD_PRODUTO])
 );
 
-CREATE UNIQUE INDEX IF NOT EXISTS [IPK_ITEM_PEDIDO] ON ITEM_PEDIDO([COD_PEDIDO]);
+CREATE UNIQUE INDEX IF NOT EXISTS [IPK_ITEM_PEDIDO] ON ITEM_PEDIDO([COD_ITEM_PEDIDO]);
 
 -- ------------------------------------------------------------------
 -- ------------------------------------------------------------------
@@ -293,6 +293,101 @@ VALUES ((SELECT COD_FORNECEDOR FROM FORNECEDOR WHERE NOME LIKE '%refrigeran%'), 
 
 -- ------------------------------------------------------------------
 -- ------------------------------------------------------------------
+-- INSERTS NA TABELA PEDIDO
+-- CLIENTE 1
+INSERT INTO PEDIDO(COD_CLIENTE, COD_VENDEDOR, COD_LOJA, DES_STATUS, TEMPO_ESPERA, VLR_PEDIDO, DATA_PEDIDO)
+VALUES (1, 1, 1, 'Preparado o pedido', '00:30', 140.00, '2023-11-01 20:00');
+
+-- ------------------------------------------------------------------
+INSERT INTO PEDIDO(COD_CLIENTE, COD_VENDEDOR, COD_LOJA, DES_STATUS, TEMPO_ESPERA, VLR_PEDIDO, DATA_PEDIDO)
+VALUES (1, 2, 1, 'Em rota de entrega', '00:10', 69.00, '2023-11-10 14:00');
+
+-- ------------------------------------------------------------------
+--CLIENTE 2
+INSERT INTO PEDIDO(COD_CLIENTE, COD_VENDEDOR, COD_LOJA, DES_STATUS, TEMPO_ESPERA, VLR_PEDIDO, DATA_PEDIDO)
+VALUES (2, 2, 2, 'Finalizando pedido', '00:15', 90.00 , '2023-10-20 14:00');
+
+-- ------------------------------------------------------------------
+--CLIENTE 3
+INSERT INTO PEDIDO(COD_CLIENTE, COD_VENDEDOR, COD_LOJA, DES_STATUS, TEMPO_ESPERA, VLR_PEDIDO, DATA_PEDIDO)
+VALUES (3, 2, 2, 'Preparando o pedido', '00:40', 166.00, '2023-10-15 17:00');
+
+-- ------------------------------------------------------------------
+
+INSERT INTO PEDIDO(COD_CLIENTE, COD_VENDEDOR, COD_LOJA, DES_STATUS, TEMPO_ESPERA, VLR_PEDIDO, DATA_PEDIDO)
+VALUES (3, 1, 1, 'Em rota de entrega', '00:08', 158.00 , '2023-11-05 19:00');
+
+-- ------------------------------------------------------------------
+--CLIENTE 4
+INSERT INTO PEDIDO(COD_CLIENTE, COD_VENDEDOR, COD_LOJA, DES_STATUS, TEMPO_ESPERA, VLR_PEDIDO, DATA_PEDIDO)
+VALUES (4, 2, 2, 'Pronto para retirada', '00:00', 52.00, '2023-10-03 12:00');
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- INSERTS NA TABELA ITEM_PEDIDO
+-- ITENS DO PEDIDO 1
+INSERT INTO ITEM_PEDIDO (COD_PEDIDO, COD_PRODUTO, QTD_PRODUTO)
+VALUES (1, 1, 1.00);
+
+-- ------------------------------------------------------------------
+-- ITENS DO PEDIDO 2
+INSERT INTO ITEM_PEDIDO (COD_PEDIDO, COD_PRODUTO, QTD_PRODUTO)
+VALUES (2, 4, 5.00);
+
+-- ------------------------------------------------------------------
+INSERT INTO ITEM_PEDIDO(COD_PEDIDO, COD_PRODUTO, QTD_PRODUTO)
+VALUES (2, 5, 1.00);
+
+-- ------------------------------------------------------------------
+-- ITENS DO PEDIDO 3
+INSERT INTO ITEM_PEDIDO(COD_PEDIDO, COD_PRODUTO, QTD_PRODUTO)
+VALUES (3, 3, 10.00);
+
+-- ------------------------------------------------------------------
+INSERT INTO ITEM_PEDIDO(COD_PEDIDO, COD_PRODUTO, QTD_PRODUTO)
+VALUES (3, 6, 2.00);
+
+-- ------------------------------------------------------------------
+INSERT INTO ITEM_PEDIDO(COD_PEDIDO, COD_PRODUTO, QTD_PRODUTO)
+VALUES (3, 5, 1.00);
+
+-- ------------------------------------------------------------------
+-- ITENS DO PEDIDO 4
+INSERT INTO ITEM_PEDIDO(COD_PEDIDO, COD_PRODUTO, QTD_PRODUTO)
+VALUES (4, 1, 5.00);
+
+-- ------------------------------------------------------------------
+INSERT INTO ITEM_PEDIDO(COD_PEDIDO, COD_PRODUTO, QTD_PRODUTO)
+VALUES (4, 2, 10.00);
+
+-- ------------------------------------------------------------------
+INSERT INTO ITEM_PEDIDO(COD_PEDIDO, COD_PRODUTO, QTD_PRODUTO)
+VALUES (4, 5, 2.00);
+
+-- ------------------------------------------------------------------
+INSERT INTO ITEM_PEDIDO(COD_PEDIDO, COD_PRODUTO, QTD_PRODUTO)
+VALUES (4, 7, 1.00);
+
+-- ------------------------------------------------------------------
+-- ITENS DO PEDIDO 5
+INSERT INTO ITEM_PEDIDO(COD_PEDIDO, COD_PRODUTO, QTD_PRODUTO)
+VALUES (5, 1, 10.00);
+
+-- ------------------------------------------------------------------
+INSERT INTO ITEM_PEDIDO(COD_PEDIDO, COD_PRODUTO, QTD_PRODUTO)
+VALUES (5, 5, 2.00);
+
+-- ------------------------------------------------------------------
+-- ITENS DO PEDIDO 6
+INSERT INTO ITEM_PEDIDO(COD_PEDIDO, COD_PRODUTO, QTD_PRODUTO)
+VALUES (6, 1, 2.00);
+
+-- ------------------------------------------------------------------
+INSERT INTO ITEM_PEDIDO(COD_PEDIDO, COD_PRODUTO, QTD_PRODUTO)
+VALUES (6, 4, 2.00);
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
 -- ------------------------------------------------------------------
 -- UPDATES
 -- ------------------------------------------------------------------
@@ -323,6 +418,16 @@ UPDATE VENDEDOR SET NOME = 'Maria Eduarda' WHERE TELEFONE = (SELECT TELEFONE FRO
 -- ------------------------------------------------------------------
 --UPDATE NOS REGISTROS DA TABELA PRODUTO
 UPDATE PRODUTO SET NOME = 'Heineken' WHERE NOME = (SELECT NOME FROM PRODUTO WHERE NOME LIKE 'Hei%'); 
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+--UPDATE NOS REGISTROS DA TABELA PEDIDO
+UPDATE PEDIDO SET COD_VENDEDOR = 1 WHERE COD_PEDIDO = 2; 
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+--UPDATE NOS REGISTROS DA TABELA ITEM_PEDIDO
+UPDATE ITEM_PEDIDO SET QTD_PRODUTO  = 10.00 WHERE COD_ITEM_PEDIDO = 1; 
 
 -- ------------------------------------------------------------------
 -- ------------------------------------------------------------------
@@ -409,6 +514,16 @@ DELETE FROM VENDEDOR WHERE COD_VENDEDOR = 1;
 -- ------------------------------------------------------------------
 -- DELE DO REGISTRO NA TABELA PRODUTO
 DELETE FROM PRODUTO WHERE COD_PRODUTO = 1;
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- DELE DO REGISTRO NA TABELA PEDIDO
+DELETE FROM PEDIDO WHERE COD_PEDIDO = 1;
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- DELE DO REGISTRO NA TABELA ITEM_PEDIDO
+DELETE FROM ITEM_PEDIDO WHERE COD_ITEM_PEDIDO = 1;
 
 -- ------------------------------------------------------------------
 -- ------------------------------------------------------------------
