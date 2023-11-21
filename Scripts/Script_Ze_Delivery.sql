@@ -142,7 +142,7 @@ CREATE TABLE IF NOT EXISTS [ESTOQUE]
 [COD_ESTOQUE] INTEGER NOT NULL,
 [COD_PRODUTO] INTEGER NOT NULL,
 [COD_LOJA] INTEGER NOT NULL,
-[QTD_PRODUTO] INTEGER NOT NULL,
+[QTD_PRODUTO] DOUBLE NOT NULL,
 CONSTRAINT [PK_ESTOQUE] PRIMARY KEY([COD_ESTOQUE] AUTOINCREMENT),
 CONSTRAINT [FK_PRODUTO] FOREIGN KEY([COD_PRODUTO]) REFERENCES PRODUTO([COD_PRODUTO]),
 CONSTRAINT [FK_LOJA] FOREIGN KEY([COD_LOJA]) REFERENCES LOJA([COD_LOJA])
@@ -296,7 +296,7 @@ VALUES ((SELECT COD_FORNECEDOR FROM FORNECEDOR WHERE NOME LIKE '%refrigeran%'), 
 -- INSERTS NA TABELA PEDIDO
 -- CLIENTE 1
 INSERT INTO PEDIDO(COD_CLIENTE, COD_VENDEDOR, COD_LOJA, DES_STATUS, TEMPO_ESPERA, VLR_PEDIDO, DATA_PEDIDO)
-VALUES (1, 1, 1, 'Preparado o pedido', '00:30', 140.00, '2023-11-01 20:00');
+VALUES (1, 1, 1, 'Preparado o pedido', '00:30', 140.00, '2023-10-07 20:00');
 
 -- ------------------------------------------------------------------
 INSERT INTO PEDIDO(COD_CLIENTE, COD_VENDEDOR, COD_LOJA, DES_STATUS, TEMPO_ESPERA, VLR_PEDIDO, DATA_PEDIDO)
@@ -320,7 +320,7 @@ VALUES (3, 1, 1, 'Em rota de entrega', '00:08', 158.00 , '2023-11-05 19:00');
 -- ------------------------------------------------------------------
 --CLIENTE 4
 INSERT INTO PEDIDO(COD_CLIENTE, COD_VENDEDOR, COD_LOJA, DES_STATUS, TEMPO_ESPERA, VLR_PEDIDO, DATA_PEDIDO)
-VALUES (4, 2, 2, 'Pronto para retirada', '00:00', 52.00, '2023-10-03 12:00');
+VALUES (4, 2, 2, 'Pronto para retirada', '00:00', 52.00, '2023-11-03 12:00');
 
 -- ------------------------------------------------------------------
 -- ------------------------------------------------------------------
@@ -388,6 +388,136 @@ VALUES (6, 4, 2.00);
 
 -- ------------------------------------------------------------------
 -- ------------------------------------------------------------------
+-- INSERTS NA TABELA ESTOQUE
+--LOJA 1
+-- ESTOQUE HEINEKEN
+INSERT INTO ESTOQUE(COD_PRODUTO, COD_LOJA, QTD_PRODUTO)
+VALUES (1, 1, 100.00);
+
+-- ------------------------------------------------------------------
+-- ESTOQUE BRAHMA
+INSERT INTO ESTOQUE(COD_PRODUTO, COD_LOJA, QTD_PRODUTO)
+VALUES (2, 1, 150.00);
+
+-- ------------------------------------------------------------------
+-- ESTOQUE BRAHMA
+INSERT INTO ESTOQUE(COD_PRODUTO, COD_LOJA, QTD_PRODUTO)
+VALUES (3, 1, 80.00);
+
+-- ------------------------------------------------------------------
+-- ESTOQUE BRAHMA
+INSERT INTO ESTOQUE(COD_PRODUTO, COD_LOJA, QTD_PRODUTO)
+VALUES (4, 1, 50.00);
+
+-- ------------------------------------------------------------------
+-- ESTOQUE BRAHMA
+INSERT INTO ESTOQUE(COD_PRODUTO, COD_LOJA, QTD_PRODUTO)
+VALUES (5, 1, 40.00);
+
+-- ------------------------------------------------------------------
+-- ESTOQUE BRAHMA
+INSERT INTO ESTOQUE(COD_PRODUTO, COD_LOJA, QTD_PRODUTO)
+VALUES (6, 1, 30.00);
+
+-- ------------------------------------------------------------------
+-- ESTOQUE BRAHMA
+INSERT INTO ESTOQUE(COD_PRODUTO, COD_LOJA, QTD_PRODUTO)
+VALUES (7, 1, 40.00);
+
+-- ------------------------------------------------------------------
+--LOJA 2
+-- ESTOQUE HEINEKEN
+INSERT INTO ESTOQUE(COD_PRODUTO, COD_LOJA, QTD_PRODUTO)
+VALUES (1, 2, 200.00);
+
+-- ------------------------------------------------------------------
+-- ESTOQUE BRAHMA
+INSERT INTO ESTOQUE(COD_PRODUTO, COD_LOJA, QTD_PRODUTO)
+VALUES (2, 2, 100.00);
+
+-- ------------------------------------------------------------------
+-- ESTOQUE BRAHMA
+INSERT INTO ESTOQUE(COD_PRODUTO, COD_LOJA, QTD_PRODUTO)
+VALUES (3, 2, 100.00);
+
+-- ------------------------------------------------------------------
+-- ESTOQUE BRAHMA
+INSERT INTO ESTOQUE(COD_PRODUTO, COD_LOJA, QTD_PRODUTO)
+VALUES (4, 2, 150.00);
+
+-- ------------------------------------------------------------------
+-- ESTOQUE BRAHMA
+INSERT INTO ESTOQUE(COD_PRODUTO, COD_LOJA, QTD_PRODUTO)
+VALUES (5, 2, 80.00);
+
+-- ------------------------------------------------------------------
+-- ESTOQUE BRAHMA
+INSERT INTO ESTOQUE(COD_PRODUTO, COD_LOJA, QTD_PRODUTO)
+VALUES (6, 2, 50.00);
+
+-- ------------------------------------------------------------------
+-- ESTOQUE BRAHMA
+INSERT INTO ESTOQUE(COD_PRODUTO, COD_LOJA, QTD_PRODUTO)
+VALUES (3, 2, 60.00);
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- INSERTS NA TABELA DE RELATÓRIO 
+-- INSERTS DO RELATORIO DA LOJA 1 NO MÊS DE OUTUBRO
+INSERT INTO RELATORIO(COD_LOJA, VLR_TOTAL, DATA_INICIO, DATA_FIM)
+VALUES (1,
+(
+SELECT SUM(P.VLR_PEDIDO) FROM PEDIDO P WHERE P.COD_LOJA = 1 AND P.DATA_PEDIDO BETWEEN '2023-10-01 00:00' AND '2023-11-01 00:00'
+),
+'2023-10-01 00:00', '2023-11-01 00:00'); --140
+
+-- ------------------------------------------------------------------
+-- INSERTS DO RELATORIO DA LOJA 1 NO MÊS DE NOVEMBRO
+INSERT INTO RELATORIO(COD_LOJA, VLR_TOTAL, DATA_INICIO, DATA_FIM)
+VALUES (1,
+(
+SELECT SUM(P.VLR_PEDIDO) FROM PEDIDO P WHERE P.COD_LOJA = 1 AND P.DATA_PEDIDO BETWEEN '2023-11-01 00:00' AND '2023-12-01 00:00'
+),
+'2023-11-01 00:00', '2023-12-10 00:00'); -- 227
+
+-- ------------------------------------------------------------------
+-- INSERTS DO RELATORIO DA LOJA 1 NO MÊS DE OUTUBRO E NOVEMBRO
+INSERT INTO RELATORIO(COD_LOJA, VLR_TOTAL, DATA_INICIO, DATA_FIM)
+VALUES (1,
+(
+SELECT SUM(P.VLR_PEDIDO) FROM PEDIDO P WHERE P.COD_LOJA = 1 AND P.DATA_PEDIDO BETWEEN '2023-10-01 00:00' AND '2023-12-01 00:00'
+),
+'2023-10-01 00:00', '2023-12-01 00:00'); 
+
+-- ------------------------------------------------------------------
+-- INSERTS DO RELATORIO DA LOJA 2 NO MÊS DE OUTUBRO
+INSERT INTO RELATORIO(COD_LOJA, VLR_TOTAL, DATA_INICIO, DATA_FIM)
+VALUES (2,
+(
+SELECT SUM(P.VLR_PEDIDO) FROM PEDIDO P WHERE P.COD_LOJA = 2 AND P.DATA_PEDIDO BETWEEN '2023-10-01 00:00' AND '2023-11-01 00:00'
+),
+'2023-10-01 00:00', '2023-11-01 00:00');
+
+-- ------------------------------------------------------------------
+-- INSERTS DO RELATORIO DA LOJA 2 NO MÊS DE NOVEMBRO
+INSERT INTO RELATORIO(COD_LOJA, VLR_TOTAL, DATA_INICIO, DATA_FIM)
+VALUES (2,
+(
+SELECT SUM(P.VLR_PEDIDO) FROM PEDIDO P WHERE P.COD_LOJA = 2 AND P.DATA_PEDIDO BETWEEN '2023-11-01 00:00' AND '2023-12-01 00:00'
+),
+'2023-11-01 00:00', '2023-12-01 00:00');
+
+-- ------------------------------------------------------------------
+-- INSERTS DO RELATORIO DA LOJA 2 NO MÊS DE OUTUBRO E NOVEMBRO
+INSERT INTO RELATORIO(COD_LOJA, VLR_TOTAL, DATA_INICIO, DATA_FIM)
+VALUES (2,
+(
+SELECT SUM(P.VLR_PEDIDO) FROM PEDIDO P WHERE P.COD_LOJA = 2 AND P.DATA_PEDIDO BETWEEN '2023-10-01 00:00' AND '2023-12-01 00:00'
+),
+'2023-10-01 00:00', '2023-12-01 00:00');
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
 -- ------------------------------------------------------------------
 -- UPDATES
 -- ------------------------------------------------------------------
@@ -412,7 +542,7 @@ UPDATE CLIENTE SET CPF = '321.345.576-95' WHERE NOME = (SELECT NOME FROM CLIENTE
 -- ------------------------------------------------------------------
 -- ------------------------------------------------------------------
 --UPDATE NOS REGISTROS DA TABELA VENDEDOR
-UPDATE VENDEDOR SET NOME = 'Maria Eduarda' WHERE TELEFONE = (SELECT TELEFONE FROM CLIENTE WHERE TELEFONE = '(31) 9 5810-9151');
+UPDATE VENDEDOR SET NOME = 'Maria Eduarda' WHERE TELEFONE = (SELECT TELEFONE FROM VENDEDOR WHERE TELEFONE = '(31) 9 5810-9151');
 
 -- ------------------------------------------------------------------
 -- ------------------------------------------------------------------
@@ -428,6 +558,16 @@ UPDATE PEDIDO SET COD_VENDEDOR = 1 WHERE COD_PEDIDO = 2;
 -- ------------------------------------------------------------------
 --UPDATE NOS REGISTROS DA TABELA ITEM_PEDIDO
 UPDATE ITEM_PEDIDO SET QTD_PRODUTO  = 10.00 WHERE COD_ITEM_PEDIDO = 1; 
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+--UPDATE NOS REGISTROS DA TABELA ESTOQUE
+UPDATE ESTOQUE SET COD_PRODUTO = 7 WHERE COD_ESTOQUE = 14;
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+--UPDATE NOS REGISTROS DA TABELA ESTOQUE
+UPDATE RELATORIO SET DATA_FIM =  '2023-12-01 00:00' WHERE COD_RELATORIO  = 2;
 
 -- ------------------------------------------------------------------
 -- ------------------------------------------------------------------
@@ -485,6 +625,64 @@ SELECT * FROM RELATORIO;
 -- ------------------------------------------------------------------
 -- ------------------------------------------------------------------
 -- ------------------------------------------------------------------
+-- SELECTS COM INNER JOIN
+-- QUERO RESGATAR O VALOR TOTAL DE ITENS VENDIDOS EM CADA LOJA
+SELECT L.NOME AS LOJA, SUM(P.VLR_PEDIDO) AS TOTAL_VENDAS FROM PEDIDO P
+RIGHT JOIN LOJA L ON L.COD_LOJA = P.COD_LOJA 
+GROUP BY L.NOME;
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- QUERO RESGATAR O VALOR DE CADA PEDIDO  FEITO POR CADA UM DOS CLIENTE EM TODAS AS LOJAS
+SELECT C.NOME AS CLIENTE, C.CPF, SUM(P.VLR_PEDIDO) AS VALOR_PEDIDO, L.NOME AS LOJA, P.DATA_PEDIDO  FROM PEDIDO P
+JOIN CLIENTE C ON C.COD_CLIENTE = P.COD_CLIENTE
+JOIN LOJA L ON L.COD_LOJA = P.COD_LOJA 
+GROUP BY P.COD_PEDIDO
+ORDER BY P.DATA_PEDIDO ASC;
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- QUERO TODAS AS INFORMAÇÕES DA TABELA PEDIDO
+SELECT P.COD_PEDIDO AS CODIGO, C.NOME AS CLIENTE, V.NOME AS VENDEDOR, L.NOME AS LOJA, P.DES_STATUS AS STATUS, 
+P.TEMPO_ESPERA, SUM(IP.QTD_PRODUTO) AS QTD_ITENS, P.VLR_PEDIDO AS VALOR, P.DATA_PEDIDO 
+FROM PEDIDO P
+JOIN CLIENTE C ON C.COD_CLIENTE = P.COD_CLIENTE 
+JOIN VENDEDOR V ON V.COD_VENDEDOR = P.COD_VENDEDOR 
+JOIN LOJA L ON L.COD_LOJA = P.COD_LOJA 
+JOIN ITEM_PEDIDO IP ON IP.COD_PEDIDO = P.COD_PEDIDO
+GROUP BY P.COD_PEDIDO;
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- QUERO OS RELATORIOS DE CADA UM DAS LOJAS 
+SELECT R.COD_RELATORIO AS CODIGO, L.NOME AS LOJA, R.VLR_TOTAL AS VALOR_TOTAL, R.DATA_INICIO, R.DATA_FIM  FROM RELATORIO R
+JOIN LOJA L ON L.COD_LOJA = R.COD_LOJA
+ORDER BY R.VLR_TOTAL DESC;
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- QUERO SABER QUANTO CADA VENDEDOR VENDEU EM CADA LOJA
+SELECT V.NOME  AS VENDEDOR, L.NOME AS LOJA, SUM(P.VLR_PEDIDO) AS VALOR_TOTAL FROM VENDEDOR V
+JOIN LOJA L ON L.COD_LOJA = V.COD_LOJA 
+JOIN PEDIDO P ON P.COD_VENDEDOR = V.COD_VENDEDOR
+GROUP BY V.COD_VENDEDOR;
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- QUERO SABER QUAIS SÃO OS USUARIOS-CLIENTES DO SISTEMA
+SELECT C.NOME, C.CPF , C.TELEFONE, C.ENDERECO, U.LOGIN, U.EMAIL FROM USUARIO U
+JOIN CLIENTE C ON C.COD_USUARIO = U.COD_USUARIO
+GROUP BY C.COD_CLIENTE;
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- QUERO SABER QUAIS SÃO OS USUARIOS-VENDEDORES DO SISTEMA
+SELECT V.NOME, V.CPF , V.TELEFONE, V.ENDERECO, U.LOGIN, U.EMAIL FROM USUARIO U
+JOIN VENDEDOR V ON V.COD_USUARIO = U.COD_USUARIO;
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
 -- DELETE DOS REGISTROS DE ID = 1 EM CADA TABELA
 -- ------------------------------------------------------------------
 -- DELETE DO REGISTRO DA TABELA LOJA 
@@ -492,38 +690,48 @@ DELETE FROM LOJA WHERE COD_LOJA = 1;
 
 -- ------------------------------------------------------------------
 -- ------------------------------------------------------------------
--- DELE DO REGISTRO NA TABELA FORNECEDOR
+-- DELETE DO REGISTRO NA TABELA FORNECEDOR
 DELETE FROM FORNECEDOR WHERE COD_FORNECEDOR = 1;
 
 -- ------------------------------------------------------------------
 -- ------------------------------------------------------------------
--- DELE DO REGISTRO NA TABELA USUARIO
+-- DELETE DO REGISTRO NA TABELA USUARIO
 DELETE FROM USUARIO WHERE COD_USUARIO = 1;
 
 -- ------------------------------------------------------------------
 -- ------------------------------------------------------------------
--- DELE DO REGISTRO NA TABELA CLIENTE
+-- DELETE DO REGISTRO NA TABELA CLIENTE
 DELETE FROM CLIENTE WHERE COD_CLIENTE = 1;
 
 -- ------------------------------------------------------------------
 -- ------------------------------------------------------------------
--- DELE DO REGISTRO NA TABELA VENDEDOR
+-- DELETE DO REGISTRO NA TABELA VENDEDOR
 DELETE FROM VENDEDOR WHERE COD_VENDEDOR = 1;
 
 -- ------------------------------------------------------------------
 -- ------------------------------------------------------------------
--- DELE DO REGISTRO NA TABELA PRODUTO
+-- DELETE DO REGISTRO NA TABELA PRODUTO
 DELETE FROM PRODUTO WHERE COD_PRODUTO = 1;
 
 -- ------------------------------------------------------------------
 -- ------------------------------------------------------------------
--- DELE DO REGISTRO NA TABELA PEDIDO
+-- DELETE DO REGISTRO NA TABELA PEDIDO
 DELETE FROM PEDIDO WHERE COD_PEDIDO = 1;
 
 -- ------------------------------------------------------------------
 -- ------------------------------------------------------------------
--- DELE DO REGISTRO NA TABELA ITEM_PEDIDO
+-- DELETE DO REGISTRO NA TABELA ITEM_PEDIDO
 DELETE FROM ITEM_PEDIDO WHERE COD_ITEM_PEDIDO = 1;
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- DELETE DO REGISTRO NA TABELA ESTOQUE
+DELETE FROM ESTOQUE WHERE COD_ESTOQUE = 1;
+
+-- ------------------------------------------------------------------
+-- ------------------------------------------------------------------
+-- DELETE DO REGISTRO NA TABELA RELATORIO
+DELETE FROM RELATORIO WHERE COD_RELATORIO = 1;
 
 -- ------------------------------------------------------------------
 -- ------------------------------------------------------------------
